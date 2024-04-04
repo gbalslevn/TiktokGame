@@ -265,7 +265,7 @@ function App() {
     }
   }, [latestLike])
 
-
+  // https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API robot to announce winner dynamically
   const announceWinner = (winnerUsername) => {
     const synth = window.speechSynthesis;
     const voices = synth.getVoices()
