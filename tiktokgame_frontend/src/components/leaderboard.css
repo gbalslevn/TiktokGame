@@ -1,0 +1,39 @@
+.leaderboard-table {
+    width: 30%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .leaderboard-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .leaderboard-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .leaderboard-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .gold {
+    background-color: gold;
+    font-weight: bold;
+  }
+  
+  .silver {
+    background-color: silver;
+    font-weight: bold;
+  }
+  
+  .bronze {
+    background-color: #cd7f32; 
+    font-weight: bold;
+  }
+  

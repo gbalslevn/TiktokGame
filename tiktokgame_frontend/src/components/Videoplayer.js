@@ -17,7 +17,7 @@ function Videoplayer({ gameHasStarted }) {
         const oneOrTwo = Math.floor(Math.random() * 2) + 1;
         if (gameHasStarted) {
             setVideoUrl(hadAGreatDay)
-            setTimeout(() => { // After game has started greet after 2 seconds
+            setTimeout(() => { // After game has started greet after x seconds
                 setIsPlaying(true);
             }, 3000);
         } else {
@@ -26,9 +26,9 @@ function Videoplayer({ gameHasStarted }) {
             } else {
                 setVideoUrl(gameStartingSoon2)
             }
-            setTimeout(() => { // After game has started greet after 2 seconds
+            setTimeout(() => { // After game has finished greet after x seconds
                 setIsPlaying(true);
-            }, 0);
+            }, 3000);
         }
     }, [gameHasStarted])
 

@@ -19,7 +19,7 @@ import Videoplayer from './components/Videoplayer';
 function App() {
   //const video = require('./assets/Game_starting_soon.mp4')
   const [showWinner, setShowWinner] = useState(false)
-  const [latestWinner, setLatestWinner] = useState('not found')
+  const [latestWinner, setLatestWinner] = useState('G')
   const [winners, setWinners] = useState([])
   const [allPlayers, setAllPlayers] = useState([])
   const [gameHasLoaded, setGameHasLoaded] = useState(false)
@@ -31,7 +31,7 @@ function App() {
   const [latestGift, setLatestGift] = useState(null)
 
   const canvasWidth = 800
-  const canvasHeight = 200
+  const canvasHeight = 400
 
   function createGame() {
     const engine = Matter.Engine.create()
@@ -193,6 +193,7 @@ function App() {
       newArray.push({ label: winnerUsername, points: 1 })
     }
     setWinners(newArray)
+    announceWinner(winnerUsername)
   }
 
   function resetWorld(world, engine, render, runner) {
@@ -255,14 +256,30 @@ function App() {
 
   useEffect(() => {
     if (latestLike) {
-      const username = latestLike.uniqueId
-      const likeCount = latestLike.likeCount // Amount likes sent for each like
-      move(username, likeCount)
+      if(gameHasStarted) {
+        const username = latestLike.uniqueId
+        const likeCount = latestLike.likeCount // Amount likes sent for each like
+        move(username, likeCount)
+      }
       //console.log(latestLike)
     }
   }, [latestLike])
 
 
+  const announceWinner = (winnerUsername) => {
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices()
+    const utterance = new SpeechSynthesisUtterance(`Congratulations! The winner is ${winnerUsername}.`);
+    utterance.pitch = 1.8;
+    utterance.rate = 0.9;
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].name === "Grandma (Engelsk (Storbritannien))") {
+        utterance.voice = voices[i];
+      }
+    }
+    utterance.lang = "en-GB";
+    synth.speak(utterance);
+  };
 
   function playSound(file, volume = 1) {
     const audio = new Audio(file)
@@ -281,10 +298,10 @@ function App() {
       <button onClick={spawnBomb}>Bomb</button>
       <button onClick={createGame}>Lav spil</button>
       {/*<button onClick={() => { setConfetti(true) }}><>{confetti && <ConfettiExplosion />}</>Confetti</button>*/}
-      {/*<Leaderboard winners={winners} allPlayers={allPlayers}></Leaderboard>*/}
+      <Leaderboard winners={winners} allPlayers={allPlayers}></Leaderboard>
       {/*<video src={video} type="video/mp4" autoPlay width={300} height={300}></video>*/}
-      {showWinner && <p>Winner is {latestWinner}</p>}{confetti && <ConfettiExplosion />}{/*showWinner && <ComponentToShow />*/}
-      <Timer duration={7} gameHasStarted={gameHasStarted} setGameHasStarted={setGameHaStarted}></Timer>
+      <div className='latestWinner'><p>Latest winner is: {latestWinner}</p></div>{confetti && <ConfettiExplosion />}{/*showWinner && <ComponentToShow />*/}
+      <div className='timer'><Timer duration={10} gameHasStarted={gameHasStarted} setGameHasStarted={setGameHaStarted}></Timer></div>
       {gameHasLoaded && <TikTok handleComments={handleComments} handleGifts={handleGifts} handleLikes={handleLikes} />}
       <Videoplayer gameHasStarted={gameHasStarted}></Videoplayer>
     </div>

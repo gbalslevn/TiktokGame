@@ -2,5 +2,14 @@
   text-align: center;
 }
 
+.latestWinner {
+  font-weight: bold;
+}
+
+.timer {
+  position: absolute;
+  padding: 390px;
+}
+
 
 

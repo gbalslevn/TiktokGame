@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './leaderboard.css';
 const Leaderboard = (props) => {
     const [testWinners, setWinners] = useState([
         { id: 1, name: 'Player 1', points: 100 },
@@ -14,33 +14,32 @@ const Leaderboard = (props) => {
         { id: 10, name: 'Player 4', points: 90 },
     ]);
 
-    const sortedLeaderboard = props.winners.sort((a, b) => b.points - a.points);
+    const sortedLeaderboard = testWinners.sort((a, b) => b.points - a.points);
     const top10Winners = sortedLeaderboard.slice(0, 10);
 
     return (
         <div>
-            <h2>Leaderboard</h2>
-            <table>
+            <table className="leaderboard-table">
                 <thead>
                     <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
+                        <th>Player</th>
                         <th>Points</th>
                     </tr>
                 </thead>
                 <tbody>
                     {top10Winners.map((player, index) => (
-                        <tr key={player.label}>
-                            <td>{index + 1}</td>
-                            <td>{player.label}</td>
+                        <tr key={index} className={index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : ''}>
+                            <td>{player.name}</td>
                             <td>{player.points}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            {/*
             {props.allPlayers.map((str, index) => (
                 <p key={index}>{str}</p>
             ))}
+            */ }
         </div>
     );
 };
